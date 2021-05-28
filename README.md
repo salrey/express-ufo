@@ -14,7 +14,7 @@ The ISP team doesn't know how to search through the data, so it will be up to yo
 
 ## Getting Started
 
-The team is thrilled to have you hear and want to be able to access the data ASAP.
+The team is thrilled to have you here and want to be able to access the data ASAP.
 
 Let's build them a simple terminal app, where they can type
 `node app.js state=NY` in order to see all the sightings in NY.
