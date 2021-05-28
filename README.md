@@ -103,7 +103,7 @@ Should show all the sphere shaped encounters in Roanoke, VA
 
 ![](./assets/form.png)
 
-<details><summary>Hint: Using terminal to get state</summary>
+<details><summary>Hint: Use Chrome Dev Tools to look at a sample form</summary>
 
 ![](./assets/form_hint.png)
 
