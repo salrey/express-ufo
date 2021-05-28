@@ -95,11 +95,11 @@ http://localhost:3333/sightings?state=VA&city=Roanoke&shape=sphere
 
 Should show all the sphere shaped encounters in Roanoke, VA
 
-Add the total number of sightings
+## Add the total number of sightings
 
 ![](./assets/num_sightings.png)
 
-Create a form that makes the queries
+## Create a form that makes the queries
 
 ![](./assets/form.png)
 
