@@ -77,7 +77,7 @@ The Team doesn't like using Terminal! It's scary! They would all feel much more 
 
 The team should be able to go to `localhost:3333/sightings[query]`
 
-And be able to see their requests:
+And be able to see their requests as html (use `res.send()` to send long strings of HTML with the data embedded:
 
 - by state
 - by city
