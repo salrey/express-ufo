@@ -63,8 +63,8 @@ app.get("/sightings", (request, response) => {
                 })
                 break;
         }
-
-        result = sightingsFound.length ? sightingsFound.map((sighting) => {
+        
+        result = sightingsFound.map((sighting) => {
             return (
                 `
                     <hr></hr>
@@ -77,10 +77,14 @@ app.get("/sightings", (request, response) => {
                     <hr></hr>
                 `
             )
-        }).join("") : "No queries have been found."
+        }).join("")
     }
-
-    response.send(`<h1>Number of Sightings: ${sightingsFound.length}</h1>` + result)
+    //ERROR Handling - status codes
+    if (sightingsFound.length) {
+        response.send(`<h1>Number of Sightings: ${sightingsFound.length}</h1>` + result)            
+    } else {
+        response.status(404).send(`<h1>No queries have been found.</h1>`)
+    }
 })
 
 //EXPORT
