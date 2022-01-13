@@ -13,7 +13,7 @@ const state = process.argv[2]?.slice(6).toLowerCase();
 
 //DEPENDENCIES 
 const express = require("express");
-const { filteredSightings, formInputs } = require("./helpers/functions")
+const { filteredSightings, formatSightings, formInputs, sortAsc } = require("./helpers/functions")
 
 //CONFIGURATION
 const app = express()
@@ -27,7 +27,8 @@ app.get("/sightings", (request, response) => {
     //List out the queries with values
     const requestQuery = {}
     for (let key in request.query) {
-        if (request.query[key] !== "") {
+        //No need to filter the sortBy key and keys with empty values 
+        if (request.query[key] !== "" && key !== "sortBy") {
             requestQuery[key] = request.query[key]
         }
     }   
@@ -57,37 +58,28 @@ app.get("/sightings", (request, response) => {
                 })
                 break;
             default : 
-            //For cases with more than 3 queries, use For In loop on requestQuery Object 
+            //For cases with more than 3 queries, use For In loop on requestQuery Object to filter for each one
                 sightingsFound = sightingsData.filter((sighting) => {
                     return filteredSightings(requestQuery, sighting) 
                 })
                 break;
         }
         
-        result = sightingsFound.map((sighting) => {
-            return (
-                `
-                    <hr></hr>
-                    <p>Date: ${sighting.date_time}</p>
-                    <p>City: ${sighting.city}</p>
-                    <p>State: ${sighting.state}</p>
-                    <p>Shape: ${sighting.shape}</p>
-                    <p>Duration: ${sighting.duration}</p>
-                    <p>Text: ${sighting.text}</p>
-                    <hr></hr>
-                `
-            )
-        }).join("")
+        result = `<main>
+        ${formatSightings(sortAsc(sightingsFound, request.query.sortBy))}</main>`
     }
     //ERROR Handling - status codes
     if (sightingsFound.length) {
+        // To set up form and form data, check functions.js file
         response.send(`${formInputs} <h1>Number of Sightings: ${sightingsFound.length}</h1>` + result)            
     } else {
         response.status(404).send(`${formInputs} <h1>No queries have been found.</h1>`)
     }
 })
 
-// To set up form and form data, check functions.js file
+app.get("*", (_, response) => {
+    response.status(404).json({error: "Resource not found"})
+})
 
 //EXPORT
 module.exports = app;
