@@ -13,14 +13,14 @@ const state = process.argv[2]?.slice(6).toLowerCase();
 
 //DEPENDENCIES 
 const express = require("express");
-const { filteredSightings } = require("./helpers/functions")
+const { filteredSightings, formInputs } = require("./helpers/functions")
 
 //CONFIGURATION
 const app = express()
 
 //ROUTES & CALLBACK
-app.get("/", (request, response) => {
-    response.send("Welcome to Express UFO App")
+app.get("/", (_, response) => {
+    response.send(formInputs + "Welcome to Express UFO App")
 })
 
 app.get("/sightings", (request, response) => { 
@@ -81,11 +81,13 @@ app.get("/sightings", (request, response) => {
     }
     //ERROR Handling - status codes
     if (sightingsFound.length) {
-        response.send(`<h1>Number of Sightings: ${sightingsFound.length}</h1>` + result)            
+        response.send(`${formInputs} <h1>Number of Sightings: ${sightingsFound.length}</h1>` + result)            
     } else {
-        response.status(404).send(`<h1>No queries have been found.</h1>`)
+        response.status(404).send(`${formInputs} <h1>No queries have been found.</h1>`)
     }
 })
+
+// To set up form and form data, check functions.js file
 
 //EXPORT
 module.exports = app;
